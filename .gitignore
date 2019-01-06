@@ -6,3 +6,5 @@
 /HNetPortal/App_Data/boil_id_rsa
 /HNetPortal/App_Data/lrpx_esxi
 /HNetPortal/App_Data/WakeOnLanData.xml
+/.vs
+/packages

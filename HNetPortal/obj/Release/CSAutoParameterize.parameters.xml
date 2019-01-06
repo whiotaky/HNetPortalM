@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<parameters>
-  <parameter name="MySqlConnString-Web.config Connection String" description="MySqlConnString Connection String used in web.config by the application to access the database." defaultValue="server=troll.hnet.local;user id={userid};password={password};persistsecurityinfo=True;database=hnetportal;Pooling=false" tags="SqlConnectionString">
-    <parameterEntry kind="XmlFile" scope="D:\\Files\\private\\Programming\\WSH\\DotNet\\HNetPortal\\HNetPortal\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='MySqlConnString']/@connectionString" />
-  </parameter>
-  <parameter name="MSSqlConnString-Web.config Connection String" description="MSSqlConnString Connection String used in web.config by the application to access the database." defaultValue="Data Source=dbs.hnet.local;Initial Catalog={catalog};Integrated Security=True" tags="SqlConnectionString">
-    <parameterEntry kind="XmlFile" scope="D:\\Files\\private\\Programming\\WSH\\DotNet\\HNetPortal\\HNetPortal\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='MSSqlConnString']/@connectionString" />
-  </parameter>
-</parameters>
