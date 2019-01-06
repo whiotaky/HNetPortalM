@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<HNetPortal>
+  
+  <wakeOnLan>
+    <aName>box6</aName>
+    <description>Box6 PC</description>
+    <macAddress>FAKE</macAddress>
+  </wakeOnLan>
+
+ 
+
+</HNetPortal>
