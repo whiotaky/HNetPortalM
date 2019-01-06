@@ -1,0 +1,478 @@
+﻿@{
+	ViewBag.Title = "HNetPortal PFTrack2";
+}
+
+@section HeadExtras
+{
+	<script src="@Url.Content("~/Scripts/knockout-3.4.2.js")"></script>
+	<link href="@Url.Content("~/Content/font-awesome.min.css")" rel="stylesheet" />
+
+	<style>
+		tbody tr:hover td {
+			/*background-color: #C6E2EE; */
+			cursor: pointer;
+		}
+
+		.selected {
+			background-color: #C6E2EE;
+		}
+
+		.gain {
+			color: green;
+		}
+
+		.loss {
+			color: red;
+		}
+
+		.symbol, .costNormal {
+			color: blue;
+		}
+
+		.bold {
+			font-weight: bold;
+		}
+
+	</style>
+
+}
+
+
+<div class="container  row ">
+
+	<div class="row ">
+		<div class="hidden-xs hidden-sm  hidden-md col-lg-12">
+			<h1><span class="glyphicon glyphicon-usd"></span>&nbsp; The HNet Portal - PFTrack2</h1>
+		</div>
+
+		<div class="hidden-xs hidden-sm  col-md-12 hidden-lg">
+			<h2><span class="glyphicon glyphicon-usd"></span>&nbsp; The HNet Portal - PFTrack2</h2>
+		</div>
+
+		<div class="hidden-xs col-sm-12  hidden-md hidden-lg">
+			<h3><span class="glyphicon glyphicon-usd"></span>&nbsp; The HNet Portal - PFTrack2</h3>
+		</div>
+
+		<div class="col-xs-12 hidden-sm  hidden-md hidden-lg">
+			<h5><span class="glyphicon glyphicon-usd"></span>&nbsp; The HNet Portal - PFTrack2</h5>
+		</div>
+	</div>
+
+	<div class="row">
+
+		<div class="col-md-12  col-sm-12 " id="WholeAccountPanel">
+
+			<div class="panel panel-primary">
+				<div class="panel-heading ">
+					<h3 class="panel-title">Accounts</h3>
+				</div>
+
+				<div class="panel-body pre-scrollable" id="AccountsPanel" style="min-height: 330px;height: 330px">
+
+					<table class="table table-hover" id="AccountsTable">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th class="text-right">Value</th>
+							</tr>
+						</thead>
+						<tbody data-bind="foreach: { data: accounts }">
+							<tr class='clickable-row' data-bind="click: $root.clickRow, css: {'selected':$root.selectedItem() == $data}">
+								<td data-bind="text: name"></td>
+								<td align="right" data-bind="text: formatCurrency(value())"></td>
+							</tr>
+						</tbody>
+						<tfoot>
+							<tr>
+								<td class="bold">Total Value</td>
+								<td align="right" data-bind="text: formatCurrency(totalValue()), css:'bold'"></td>
+							</tr>
+						</tfoot>
+					</table>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-8  col-sm-8 " id="WholePortfolioPanel" style="visibility:hidden">
+			<div class="panel panel-primary">
+				<div class="panel-heading ">
+					<h3 class="panel-title" id="PortfolioPanelTitle">Portfolio</h3>
+				</div>
+				<div class="panel-body pre-scrollable" id="PortfolioPanel" style="min-height: 330px;height: 330px">
+					<table class="table table-hover" id="PortfolioTable">
+						<thead>
+							<tr>
+								<th>Symbol</th>
+								<th>Asset Name</th>
+								<th style="text-align:right"># Shares</th>
+								<th style="text-align:right">PPS</th>
+								<th style="text-align:right">NAV</th>
+								<th style="text-align:center">Quote Date</th>
+								<th style="text-align:right">Cost</th>
+								<th style="text-align:right">Gain/Loss</th>
+							</tr>
+						</thead>
+						<tbody data-bind="foreach: { data: portfolio }">
+							<tr class='clickable-row' data-bind="click: $root.clickRow, css: {'selected':$root.selectedItem() == $data}">
+								<td data-bind="text: symbol, css:'symbol'"></td>
+								<td data-bind="text: descr"></td>
+								<td data-bind="text: formatShares(numShares())" align="right"></td>
+								<td data-bind="text: formatCurrency(price())" align="right"></td>
+								<td data-bind="text: formatCurrency(NAV())" align="right"></td>
+								<td data-bind="text: formatDate(qdate())" class="text-center"></td>
+								<td data-bind="text: formatCurrency(cost())" align="right"></td>
+								<td data-bind="text: formatCurrency(gainloss()), css: {'gain': gainloss() > 0, 'loss': gainloss() < 0 }" align="right"></td>
+							</tr>
+						</tbody>
+						<tfoot>
+							<tr>
+								<td colspan="4" align="right" class="bold">Total Value</td>
+								<td align="right" data-bind="text: formatCurrency(totalValue()), css:'bold'"></td>
+								<td colspan="3"></td>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-12 col-sm-12" id="WholeTransactionsPanel" style="visibility:hidden">
+			<div class="panel panel-primary">
+				<div class="panel-heading ">
+					<h3 class="panel-title" id="TransactionsPanelTitle">Transactions</h3>
+				</div>
+				<div class="panel-body pre-scrollable" id="TransactionsPanel" style="min-height: 330px;height: 330px">
+					<table class="table table-hover" id="TransactionsTable">
+						<thead>
+							<tr>
+								<th>Symbol</th>
+								<th>Date</th>
+								<th>Type</th>
+								<th style="text-align:right">Shares</th>
+								<th style="text-align:right">Price</th>
+								<th style="text-align:right">Fees</th>
+								<th style="text-align:right">Cost</th>
+							</tr>
+						</thead>
+						<tbody data-bind="foreach: { data: transactions }">
+							<tr class='clickable-row' data-bind="click: $root.clickRow ">
+								<td data-bind="text: symbol, css:'symbol'"></td>
+								<td data-bind="text: formatDate(date())"></td>
+								<td data-bind="text: typeDesc, css: {'gain': typeDesc()!=='Sale', 'loss': typeDesc()==='Sale' }"></td>
+								<td data-bind="text: formatShares(numShares())" align="right"></td>
+								<td data-bind="text: formatCurrency(price())" align="right"></td>
+								<td data-bind="text: formatCurrency(fees())" align="right"></td>
+								<td data-bind="text: formatCurrency(cost()), css: {'costNormal': cost() > 0, 'loss': cost() < 0 }" align="right"></td>
+							</tr>
+						</tbody>
+
+					</table>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+
+<script type="text/javascript">
+
+	$.ajaxSetup({
+		// Disable caching of AJAX responses
+		cache: false
+	});
+
+	var selectedAccountNo = "";
+
+	function formatCurrency(value) {
+
+		var nf = new Intl.NumberFormat('en-US', {
+			style: 'currency',
+			currency: 'USD',
+			minimumFractionDigits: 2,
+			maximumFractionDigits: 2
+		});
+		return nf.format(value);
+
+	};
+
+	function formatShares(value) {
+		var nf = new Intl.NumberFormat('en-US', {
+			minimumFractionDigits: 4,
+			maximumFractionDigits: 4
+		});
+		return nf.format(value);
+	};
+
+
+	function formatDate(dt) {
+		var value = new Date(dt);
+		var ret = value.getMonth() + 1 + "-" + value.getDate() + "-" + value.getFullYear();
+		return ret;
+	}
+
+	var pleaseWaitDlg = bootbox.dialog({
+		message: '<p class="text-center"><i class="fa fa-spin fa-spinner"></i> Fetching data, please wait...</p>',
+		animate: false,
+		backdrop: true,
+		closeButton: false,
+		show : false
+	});
+	
+	pleaseWaitDlg.css({
+		'top': '50%',
+		'margin-top': function () {
+			return -(pleaseWaitDlg.height() / 2);
+		}
+	});
+
+	var AccountItem = function (data) {
+		var self = this;
+		self.name = ko.observable(data.name);
+		self.num = ko.observable(data.num);
+		self.value = ko.observable(data.value);
+	};
+
+	var PortfolioItem = function (data) {
+		var self = this;
+		self.symbol = ko.observable(data.symbol);
+		self.descr = ko.observable(data.descr);
+		self.numShares = ko.observable(data.numShares);
+		self.price = ko.observable(data.price);
+		self.NAV = ko.observable(data.NAV);
+		self.qdate = ko.observable(data.qdate);
+		self.cost = ko.observable(data.cost);
+		self.gainloss = ko.observable(data.gainloss);
+	};
+
+	var TransactionsItem = function (data) {
+		var self = this;
+		self.symbol = ko.observable(data.symbol);
+		self.date = ko.observable(data.date);
+		self.typeDesc = ko.observable(data.typeDesc);
+		self.numShares = ko.observable(data.numShares);
+		self.price = ko.observable(data.price);
+		self.fees = ko.observable(data.fees);
+		self.cost = ko.observable(data.cost);
+	};
+
+	function AccountsVM() {
+
+		var self = this;
+		self.accounts = ko.observableArray();
+		self.selectedItem = ko.observable();
+
+		self.loadData = function (newData) {
+			console.log("AccountsVM.loadData");
+			console.debug(newData);
+			var newList = ko.utils.arrayMap(newData, function (item) {
+				return new AccountItem(item);
+			});
+			self.accounts(newList);
+		};
+
+		self.totalValue = ko.computed(function () {
+			var total = 0;
+			$.each(self.accounts(), function () { total += this.value(); });
+			return total;
+		});
+
+		self.clickRow = function (which) {
+			self.selectedItem(which);
+			var whichAccountNo = which.num();
+			selectedAccountNo = whichAccountNo;
+			loadPortfolio(whichAccountNo);
+			loadTransactions(selectedAccountNo, "");
+		}
+
+	}
+
+	function PortfolioVM() {
+
+		var self = this;
+		self.portfolio = ko.observableArray();
+		self.selectedItem = ko.observable();
+
+		self.loadData = function (newData) {
+			console.log("PortfoliosVM.loadData");
+			console.debug(newData);
+			var newList = ko.utils.arrayMap(newData, function (item) {
+				return new PortfolioItem(item);
+			});
+			self.portfolio(newList);
+		};
+
+		self.totalValue = ko.computed(function () {
+			var total = 0;
+			$.each(self.portfolio(), function () { total += this.NAV(); });
+			return total;
+		});
+
+		self.clickRow = function (which) {
+			self.selectedItem(which);
+			var symbol = which.symbol();
+			loadTransactions(selectedAccountNo, symbol);
+		}
+
+	}
+
+	function TransactionsVM() {
+
+		var self = this;
+		self.transactions = ko.observableArray();
+
+		self.loadData = function (newData) {
+			console.log("TransactionsVM.loadData");
+			console.debug(newData);
+			var newList = ko.utils.arrayMap(newData, function (item) {
+				return new TransactionsItem(item);
+			});
+			self.transactions(newList);
+		};
+
+		self.clickRow = function (which) {
+			console.log("Transactions clickrow nothing to do");
+		}
+
+	}
+
+	var accountsVM = new AccountsVM();
+	var portfolioVM = new PortfolioVM();
+	var transactionsVM = new TransactionsVM();
+
+	ko.applyBindings(accountsVM, document.getElementById('AccountsPanel'));
+	ko.applyBindings(portfolioVM, document.getElementById('PortfolioPanel'));
+	ko.applyBindings(transactionsVM, document.getElementById('TransactionsPanel'));
+
+	pleaseWaitDlg.modal('show');	
+	$.ajax({
+		type: "GET",
+		url: '/api/PFTrack2/Account/Legacy',
+		contentType: "application/json",
+		dataType: "json",
+		complete: function (xhr, statusText) {
+			console.log("load Accounts xhr.status=" + xhr.status + ", statusText=" + statusText);
+			pleaseWaitDlg.modal('hide');
+			switch (xhr.status) {
+				case 200: // success
+					console.log("Server returned 200 -- Success");
+					break;
+				case 500:
+					console.log("Server returned 500 Error");
+					break;
+				default:
+					console.log("Server returned " + xhr.status + " text: " + xhr.statusText);
+			}
+		},
+		success: function (data) {
+			console.log("Account Load Data AJAX Success");
+			console.debug(data);
+			accountsVM.loadData(data);
+		},
+		error: function (data, textStatus, errorThrown) {
+			console.log("Accounts Load Data AJAX Errors " + errorThrown);
+			bootbox.alert("Service Error " + errorThrown);
+		}
+
+	});
+
+	function loadPortfolio(acctNo) {
+
+		if (acctNo === '') {
+			portfolioVM.loadData("");
+			$('#PortfolioPanelTitle').text("Portfolio");
+			$('#WholePortfolioPanel').css("visibility", "hidden");
+			return;
+		}
+
+		pleaseWaitDlg.modal('show');
+		$.ajax({
+			type: "GET",
+			url: '/api/PFTrack2/Portfolio/Legacy/' + acctNo,
+			contentType: "application/json",
+			dataType: "json",
+			complete: function (xhr, statusText) {
+				console.log("loadPortfolio xhr.status=" + xhr.status + ", statusText=" + statusText);
+				pleaseWaitDlg.modal('hide');
+				switch (xhr.status) {
+					case 200: // success
+						console.log("Server returned 200 -- Success");
+						break;
+					case 500:
+						console.log("Server returned 500 Error");
+						break;
+					default:
+						console.log("Server returned " + xhr.status + " text: " + xhr.statusText);
+				}
+			},
+			success: function (data) {
+				console.log("Portfolio Load Data AJAX Success");
+				console.debug(data);
+
+				$("#WholeAccountPanel").attr("class", "col-md-4  col-sm-4");
+				$('#WholePortfolioPanel').css("visibility", "visible");
+				$('#PortfolioPanelTitle').text("Portolio of Acccount " + acctNo);
+
+				portfolioVM.loadData(data);
+			},
+			error: function (data, textStatus, errorThrown) {
+				console.log("Portfolio Load Data AJAX Errors " + errorThrown);
+				$('#PortfolioPanelTitle').text("Portfolio");
+				$('#WholePortfolioPanel').css("visibility", "hidden");
+				bootbox.alert("Service Error " + errorThrown);
+			}
+
+		});
+	}
+
+	function loadTransactions(acctNo, symbol) {
+
+		if (acctNo === '' || symbol === '') {
+			transactionsVM.loadData("");
+			$('#TransactionPanelTitle').text("Transactions");
+			$('#WholeTransactionsPanel').css("visibility", "hidden");
+			return;
+		}
+
+		pleaseWaitDlg.modal('show');
+		$.ajax({
+			type: "GET",
+			url: '/api/PFTrack2/Transactions/Legacy/' + acctNo + '/' + symbol,
+			contentType: "application/json",
+			dataType: "json",
+			complete: function (xhr, statusText) {
+				console.log("loadTransactions xhr.status=" + xhr.status + ", statusText=" + statusText);
+				pleaseWaitDlg.modal('hide');
+				switch (xhr.status) {
+					case 200: // success
+						console.log("Server returned 200 -- Success");
+						break;
+					case 500:
+						console.log("Server returned 500 Error");
+						break;
+					default:
+						console.log("Server returned " + xhr.status + " text: " + xhr.statusText);
+				}
+			},
+			success: function (data) {
+				console.log("Transactions Load Data AJAX Success");
+				console.debug(data);
+
+				$('#WholeTransactionsPanel').css("visibility", "visible");
+				$('#TransactionsPanelTitle').text("Transactions for Portolio " + acctNo + " Symbol " + symbol);
+
+				transactionsVM.loadData(data);
+			},
+			error: function (data, textStatus, errorThrown) {
+				console.log("Transactions Load Data AJAX Errors " + errorThrown);
+				$('#TransactionPanelTitle').text("Transactions");
+				$('#WholeTransactionsPanel').css("visibility", "hidden");
+				bootbox.alert("Service Error " + errorThrown);
+			}
+
+		});
+	}
+
+
+</script>

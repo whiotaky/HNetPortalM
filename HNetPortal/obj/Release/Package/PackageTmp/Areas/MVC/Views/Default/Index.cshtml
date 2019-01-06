@@ -1,0 +1,52 @@
+﻿
+@{
+	ViewBag.Title = "HNetPortal MVC Index";	
+}
+
+<div class="row ">
+	<div class="hidden-xs hidden-sm  hidden-md col-lg-12">
+		<h1><span class="glyphicon  glyphicon-tree-conifer"></span>&nbsp; The HNet Portal - MVC Index</h1>
+	</div>
+
+	<div class="hidden-xs hidden-sm  col-md-12 hidden-lg">
+		<h2><span class="glyphicon  glyphicon-tree-conifer"></span>&nbsp; The HNet Portal - MVC Index</h2>
+	</div>
+
+
+	<div class="hidden-xs col-sm-12  hidden-md hidden-lg">
+		<h3><span class="glyphicon  glyphicon-tree-conifer"></span>&nbsp; The HNet Portal - MVC Index</h3>
+	</div>
+	
+	<div class="col-xs-12 hidden-sm  hidden-md hidden-lg">
+		<h5><span class="glyphicon  glyphicon-tree-conifer"></span>&nbsp; The HNet Portal - MVC Index</h5>
+	</div>
+</div>
+
+<p>
+	This is a placeholder HNetPortal MVC page.  It serves no purposes beyond proof of concept, demonstration, and a working 
+	example for future development.
+</p>
+<p>	
+	What makes it interesting is that the HNetPortal is a <i>WebForms</i> application.  HNetPortal MVC pages can  
+	still use the WebForms master page. This is achieved some trickery performed by RazorView.aspx, which in turn uses Html.RenderPartial().
+</p>
+<p>
+	One problem that occurred with integrating the master page; the WebForms LoginControl refused to perform a logout.  This was because the login
+	control requires the viewstate utility of a WebForm.  However, because we are using a WinForms master page, the viewstate data is still 
+	embedded in the page. 	So ControllerExtensions, RazorView's helper class, checks the viewstate data for logout and performs it when the user requests it.
+</p>
+
+<p>
+	Overall its a bit of a hack, but hey it works.
+</p>
+
+<p>
+	This input box demonstrates that form posts work without interference from the ControllerExtensions class.
+	<br />
+	<input name="test"  value="@Model.DemoText"/>
+	<button class="btn btn-info">Click me</button>
+</p>
+
+<p>
+	This text is hardcoded in the model: "<b>@Model.DemoMessage</b>"
+</p>

@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<HNetPortal>
+
+  <plexPath ID="HOME" enabled="TRUE">
+    <Name>Home Movies</Name>
+    <PROD>\\box6.hnet.local\Home--OFFLINE</PROD>
+    <DEV>E:/Multimedia/Home--OFFLINE</DEV>
+    <isHome>TRUE</isHome>
+  </plexPath>
+
+
+  <plexPath ID="M" enabled="TRUE">
+    <Name>M</Name>
+    <PROD>\\box6.hnet.local\unv\mature</PROD>
+    <DEV>e:/usenet/usenetvid/mature</DEV>
+    <isHome>FALSE</isHome>
+  </plexPath>
+
+
+  <plexPath ID="Mnn" enabled="TRUE">
+    <Name>Mnn</Name>
+    <PROD>\\box6.hnet.local\unv\mature\nn</PROD>
+    <DEV>e:/usenet/usenetvid/mature\nn</DEV>
+    <isHome>FALSE</isHome>
+  </plexPath>
+
+
+  <plexPath ID="HJ" enabled="TRUE">
+    <Name>H</Name>
+    <PROD>\\box6.hnet.local\unv\hj</PROD>
+    <DEV>e:/usenet/usenetvid/hj</DEV>
+    <isHome>FALSE</isHome>
+  </plexPath>
+
+
+
+  <plexPath ID="cm" enabled="FALSE">
+    <Name>CM</Name>
+    <PROD>\\box6.hnet.local\unv\cmass</PROD>
+    <DEV>e:/usenet/usenetvid/cmass</DEV>
+    <isHome>FALSE</isHome>
+  </plexPath>
+
+  <plexPath ID="nn" enabled="TRUE">
+    <Name>NN</Name>
+    <PROD>\\box6.hnet.local\unv\nn</PROD>
+    <DEV>e:/usenet/usenetvid/nn</DEV>
+    <isHome>FALSE</isHome>
+  </plexPath>
+
+  <plexPath ID="base" enabled="FALSE">
+    <Name>Base</Name>
+    <PROD>\\box6.hnet.local\unv</PROD>
+    <DEV>e:/usenet/usenetvid</DEV>
+    <isHome>FALSE</isHome>
+  </plexPath>
+
+  <plexPath ID="new1" enabled="FALSE">
+    <Name>New 1</Name>
+    <PROD>\\box6.hnet.local\unv\unsorted</PROD>
+    <DEV>e:/usenet/usenetvid\unsorted</DEV>
+    <isHome>FALSE</isHome>
+  </plexPath>
+  <plexPath ID="new2" enabled="FALSE">
+    <Name>New 2</Name>
+    <PROD>\\box6.hnet.local\unv\unsorted2</PROD>
+    <DEV>e:/usenet/usenetvid\unsorted2</DEV>
+    <isHome>FALSE</isHome>
+  </plexPath>
+
+  <plexPath ID="new3" enabled="FALSE">
+    <Name>New 3</Name>
+    <PROD>\\box6.hnet.local\unv\unsorted3</PROD>
+    <DEV>e:/usenet/usenetvid\unsorted3</DEV>
+    <isHome>FALSE</isHome>
+  </plexPath>
+
+
+  <plexPath ID="bkfv" enabled="FALSE">
+    <Name>Full</Name>
+    <PROD>\\box6.hnet.local\unv\bk\ztmp\vids\fullvids</PROD>
+    <DEV>e:/usenet/usenetvid\bk\ztmp\vids\fullvids</DEV>
+    <isHome>FALSE</isHome>
+  </plexPath>
+
+  <plexPath ID="JW1" enabled="TRUE">
+    <Name>Downloads 1</Name>
+    <PROD>\\box6.hnet.local\unv\JW\FromMature</PROD>
+    <DEV>e:/usenet/usenetvid\JW\FromMature</DEV>
+    <isHome>FALSE</isHome>
+  </plexPath>
+
+  <plexPath ID="JW2" enabled="TRUE">
+    <Name>Downloads 2</Name>
+    <PROD>\\box6.hnet.local\unv\JW\FromMatureNN</PROD>
+    <DEV>e:/usenet/usenetvid\JW\FromMatureNN</DEV>
+    <isHome>FALSE</isHome>
+  </plexPath>
+
+	<plexPath ID="JW3" enabled="TRUE">
+		<Name>Downloads 3</Name>
+		<PROD>\\box6.hnet.local\unv\JW\FromXHam</PROD>
+		<DEV>e:/usenet/usenetvid\JW\FromXHam</DEV>
+		<isHome>FALSE</isHome>
+	</plexPath>
+	
+
+
+	<plexPath ID="XHAM" enabled="TRUE">
+    <Name>XHAM</Name>
+    <PROD>\\box6.hnet.local\unv\xhamster</PROD>
+    <DEV>e:/usenet/usenetvid/xhamster</DEV>
+    <isHome>FALSE</isHome>
+  </plexPath>
+
+
+</HNetPortal>

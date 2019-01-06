@@ -1,0 +1,138 @@
+﻿/*Supports footer always page viewport bottom*/
+html,
+body {
+    height: 100%;   
+}
+
+.netNode {
+	display: table-cell;
+	float: left;
+	text-align: left;
+	font-size: 12px;
+	margin-bottom: 5px;
+	margin-left: 5px;
+	width: 60px;
+	color: black;
+}
+
+.netNodeUp {
+	background-color: green;
+	color: white;
+	text-align: center;
+}
+
+.netNodeDown {
+	background-color: red;
+	color: white;
+	text-align: center;
+}
+
+.netNodeRefetch {  
+    cursor: pointer;
+}
+
+
+.logViewer {
+	height: 100px;
+	font-size: 12px;
+	font-family: 'Courier New';
+}
+
+
+.scrollable {
+	background: white;
+	overflow-y: scroll;
+	white-space: pre;
+	display: block;
+	unicode-bidi: embed;
+}
+
+
+.triPanel ul {
+	padding-left: 5px;
+	margin-left: 5px;
+}
+
+	.triPanel ul.inner {
+		padding-left: 30px;
+		margin-left: 10px;
+	}
+
+.postload_placeholder {
+	text-align: center;
+	display: block;
+	width: 100%;
+}
+
+/*override bootstrap tool tip alignment */
+.tooltip-inner {
+	text-align: left;
+}
+
+
+
+
+.fc-event {
+	font-weight: bold;
+	/*cursor: pointer; */
+	cursor: default;
+}
+
+
+.fa-spin-custom, .glyphicon-spin {
+	-webkit-animation: spin 1000ms infinite linear;
+	animation: spin 1000ms infinite linear;
+}
+
+@-webkit-keyframes spin {
+	0% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+
+	100% {
+		-webkit-transform: rotate(359deg);
+		transform: rotate(359deg);
+	}
+}
+
+
+
+@keyframes spin {
+	0% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+
+	100% {
+		-webkit-transform: rotate(359deg);
+		transform: rotate(359deg);
+	}
+}
+
+.pageBanner {
+   background-color: #eceded;
+}
+
+/*Supports footer always page viewport bottom*/
+/*apply to a bootstrap container, wrapping the entire body, minus the footer*/
+.wrapper {
+    min-height: 100%;
+    height: auto;
+    margin: 0 auto -65px; /* make = to footer height+margin top*/
+    padding-bottom: 65px;/* make = to footer height+margin top*/
+
+}
+
+/*Supports footer always page viewport bottom*/
+.footer {
+    height: 60px;
+    background: #051c67;
+    color: #dee3f3;
+	margin-top: 5px;
+}
+
+.footer a {
+	color: white; 
+	text-decoration: none;
+}

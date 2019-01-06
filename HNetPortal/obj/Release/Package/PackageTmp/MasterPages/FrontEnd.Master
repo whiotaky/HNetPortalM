@@ -1,0 +1,41 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="FrontEnd.master.cs" Inherits="HNetPortal.MasterPages.FrontEnd" %>
+<%@Register TagPrefix="uc" TagName="Head" Src="~/MasterPages/Head.ascx" %>
+<%@Register TagPrefix="uc" TagName="Header" Src="~/MasterPages/Header.ascx" %>
+<%@Register TagPrefix="uc" TagName="Footer" Src="~/MasterPages/Footer.ascx" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+	<title>HNet Portal-M</title>
+
+	<uc:Head runat="server"/>
+
+	<asp:ContentPlaceHolder ID="head" runat="server">
+	</asp:ContentPlaceHolder>
+</head>
+
+<body>
+	<div class="container wrapper">
+		<form id="form1" runat="server">
+
+			<uc:Header runat="server"/>
+
+			<div class="container body-content" style="margin-top: 70px">
+
+				<asp:ContentPlaceHolder ID="ContentPlaceHolder" runat="server">
+				</asp:ContentPlaceHolder>
+
+			</div>
+
+		</form>
+	</div>
+
+	<uc:Footer runat="server" />
+
+	<asp:ContentPlaceHolder ID="belowFormPlaceHolder" runat="server">
+	</asp:ContentPlaceHolder>
+
+</body>
+
+</html>

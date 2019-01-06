@@ -1,0 +1,997 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.Net.Compilers.2.6.1\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.6.1\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0066D424-5768-4385-A6F8-3199068DB857}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HNetPortal</RootNamespace>
+    <AssemblyName>HNetPortal</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
+    <Use64BitIISExpress />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Ical.Net, Version=4.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ical.Net.4.0.6\lib\netstandard1.3\Ical.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="KeePass, Version=2.37.0.18738, Culture=neutral, PublicKeyToken=fed2ed7716aecf5c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\KeePass\KeePass.exe</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory, Version=3.19.2.6005, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.3.19.2\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory.Platform, Version=3.19.2.6005, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.3.19.2\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=5.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Logging.5.2.1\lib\net451\Microsoft.IdentityModel.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=5.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.5.2.1\lib\net451\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ServiceBus, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAzure.ServiceBus.4.1.7\lib\net45\Microsoft.ServiceBus.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.Build.Client, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.TeamFoundationServer.ExtendedClient.15.112.1\lib\net45\Microsoft.TeamFoundation.Build.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.Build.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.TeamFoundationServer.ExtendedClient.15.112.1\lib\net45\Microsoft.TeamFoundation.Build.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.Build2.WebApi, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.TeamFoundationServer.Client.15.112.1\lib\net45\Microsoft.TeamFoundation.Build2.WebApi.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.Chat.WebApi, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.TeamFoundationServer.Client.15.112.1\lib\net45\Microsoft.TeamFoundation.Chat.WebApi.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.Client, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.TeamFoundationServer.ExtendedClient.15.112.1\lib\net45\Microsoft.TeamFoundation.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.VisualStudio.Services.Client.15.112.1\lib\net45\Microsoft.TeamFoundation.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.Core.WebApi, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.TeamFoundationServer.Client.15.112.1\lib\net45\Microsoft.TeamFoundation.Core.WebApi.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.Dashboards.WebApi, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.TeamFoundationServer.Client.15.112.1\lib\net45\Microsoft.TeamFoundation.Dashboards.WebApi.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.DeleteTeamProject, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.TeamFoundationServer.ExtendedClient.15.112.1\lib\net45\Microsoft.TeamFoundation.DeleteTeamProject.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.Diff, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.TeamFoundationServer.ExtendedClient.15.112.1\lib\net45\Microsoft.TeamFoundation.Diff.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.Discussion.Client, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.TeamFoundationServer.ExtendedClient.15.112.1\lib\net45\Microsoft.TeamFoundation.Discussion.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.DistributedTask.Common.Contracts, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.TeamFoundation.DistributedTask.Common.15.112.1\lib\net45\Microsoft.TeamFoundation.DistributedTask.Common.Contracts.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.Git.Client, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.TeamFoundationServer.ExtendedClient.15.112.1\lib\net45\Microsoft.TeamFoundation.Git.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.Lab.Client, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.TeamFoundationServer.ExtendedClient.15.112.1\lib\net45\Microsoft.TeamFoundation.Lab.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.Lab.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.TeamFoundationServer.ExtendedClient.15.112.1\lib\net45\Microsoft.TeamFoundation.Lab.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.Lab.TestIntegration.Client, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.TeamFoundationServer.ExtendedClient.15.112.1\lib\net45\Microsoft.TeamFoundation.Lab.TestIntegration.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.Lab.WorkflowIntegration.Client, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.TeamFoundationServer.ExtendedClient.15.112.1\lib\net45\Microsoft.TeamFoundation.Lab.WorkflowIntegration.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.Policy.WebApi, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.TeamFoundationServer.Client.15.112.1\lib\net45\Microsoft.TeamFoundation.Policy.WebApi.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.ProjectManagement, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.TeamFoundationServer.ExtendedClient.15.112.1\lib\net45\Microsoft.TeamFoundation.ProjectManagement.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.SharePointReporting.Integration, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.TeamFoundationServer.ExtendedClient.15.112.1\lib\net45\Microsoft.TeamFoundation.SharePointReporting.Integration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.SourceControl.WebApi, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.TeamFoundationServer.Client.15.112.1\lib\net45\Microsoft.TeamFoundation.SourceControl.WebApi.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.Test.WebApi, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.TeamFoundationServer.Client.15.112.1\lib\net45\Microsoft.TeamFoundation.Test.WebApi.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.TestImpact.Client, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.TeamFoundationServer.ExtendedClient.15.112.1\lib\net45\Microsoft.TeamFoundation.TestImpact.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.TestManagement.Client, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.TeamFoundationServer.ExtendedClient.15.112.1\lib\net45\Microsoft.TeamFoundation.TestManagement.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.TestManagement.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.TeamFoundationServer.ExtendedClient.15.112.1\lib\net45\Microsoft.TeamFoundation.TestManagement.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.TestManagement.WebApi, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.TeamFoundationServer.Client.15.112.1\lib\net45\Microsoft.TeamFoundation.TestManagement.WebApi.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.VersionControl.Client, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.TeamFoundationServer.ExtendedClient.15.112.1\lib\net45\Microsoft.TeamFoundation.VersionControl.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.VersionControl.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.TeamFoundationServer.ExtendedClient.15.112.1\lib\net45\Microsoft.TeamFoundation.VersionControl.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.VersionControl.Common.Integration, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.TeamFoundationServer.ExtendedClient.15.112.1\lib\net45\Microsoft.TeamFoundation.VersionControl.Common.Integration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.Work.WebApi, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.TeamFoundationServer.Client.15.112.1\lib\net45\Microsoft.TeamFoundation.Work.WebApi.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.WorkItemTracking.Client, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.TeamFoundationServer.ExtendedClient.15.112.1\lib\net45\Microsoft.TeamFoundation.WorkItemTracking.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.WorkItemTracking.Client.DataStoreLoader, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.TeamFoundationServer.ExtendedClient.15.112.1\lib\net45\Microsoft.TeamFoundation.WorkItemTracking.Client.DataStoreLoader.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.WorkItemTracking.Client.QueryLanguage, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.TeamFoundationServer.ExtendedClient.15.112.1\lib\net45\Microsoft.TeamFoundation.WorkItemTracking.Client.QueryLanguage.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.WorkItemTracking.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.TeamFoundationServer.ExtendedClient.15.112.1\lib\net45\Microsoft.TeamFoundation.WorkItemTracking.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.WorkItemTracking.Proxy, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.TeamFoundationServer.ExtendedClient.15.112.1\lib\net45\Microsoft.TeamFoundation.WorkItemTracking.Proxy.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.WorkItemTracking.WebApi, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.TeamFoundationServer.Client.15.112.1\lib\net45\Microsoft.TeamFoundation.WorkItemTracking.WebApi.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Services.Client.Interactive, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.VisualStudio.Services.InteractiveClient.15.112.1\lib\net45\Microsoft.VisualStudio.Services.Client.Interactive.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Services.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.VisualStudio.Services.Client.15.112.1\lib\net45\Microsoft.VisualStudio.Services.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Services.WebApi, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.VisualStudio.Services.Client.15.112.1\lib\net45\Microsoft.VisualStudio.Services.WebApi.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data">
+      <HintPath>C:\Program Files (x86)\MySQL\MySQL Installer for Windows\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NodaTime, Version=2.2.4.0, Culture=neutral, PublicKeyToken=4226afe0d9b296d1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NodaTime.2.2.4\lib\net45\NodaTime.dll</HintPath>
+    </Reference>
+    <Reference Include="Renci.SshNet, Version=2016.1.0.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106, processorArchitecture=MSIL">
+      <HintPath>..\packages\SSH.NET.2016.1.0\lib\net40\Renci.SshNet.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=5.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.5.2.1\lib\net451\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.4\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Reflection.4.3.0\lib\net462\System.Reflection.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection.TypeExtensions, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Reflection.TypeExtensions.4.4.0\lib\net461\System.Reflection.TypeExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Runtime.Serialization.Primitives, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.Serialization.Primitives.4.3.0\lib\net46\System.Runtime.Serialization.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Threading.Tasks.Dataflow, Version=4.5.24.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Tpl.Dataflow.4.5.24\lib\portable-net45+win8+wpa81\System.Threading.Tasks.Dataflow.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.4\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.4\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.4\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.4\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Data\PlexPaths.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\WakeOnLanData.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Areas\MVC\Views\Shared\HeaderWrapper.ascx" />
+    <Content Include="Content\bootstrap-datepicker.css" />
+    <Content Include="Content\bootstrap-datepicker.min.css" />
+    <Content Include="Content\bootstrap-datepicker.standalone.css" />
+    <Content Include="Content\bootstrap-datepicker.standalone.min.css" />
+    <Content Include="Content\bootstrap-datepicker3.css" />
+    <Content Include="Content\bootstrap-datepicker3.min.css" />
+    <Content Include="Content\bootstrap-datepicker3.standalone.css" />
+    <Content Include="Content\bootstrap-datepicker3.standalone.min.css" />
+    <Content Include="Content\bootstrap-fileinput\css\fileinput.css" />
+    <Content Include="Content\bootstrap-fileinput\css\fileinput.min.css" />
+    <Content Include="Content\bootstrap-fileinput\img\loading-sm.gif" />
+    <Content Include="Content\bootstrap-fileinput\img\loading.gif" />
+    <Content Include="Content\bootstrap-fileinput\themes\explorer\theme.css" />
+    <Content Include="Content\bootstrap-fileinput\themes\explorer\theme.js" />
+    <Content Include="Content\bootstrap-fileinput\themes\fa\theme.js" />
+    <Content Include="Content\bootstrap-fileinput\themes\gly\theme.js" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap-treeview.css" />
+    <Content Include="Content\bootstrap-treeview.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\Highlight\arta.css" />
+    <Content Include="Content\Highlight\ascetic.css" />
+    <Content Include="Content\Highlight\brown_paper.css" />
+    <Content Include="Content\Highlight\brown_papersq.png" />
+    <Content Include="Content\Highlight\dark.css" />
+    <Content Include="Content\Highlight\default.css" />
+    <Content Include="Content\Highlight\far.css" />
+    <Content Include="Content\Highlight\github.css" />
+    <Content Include="Content\Highlight\googlecode.css" />
+    <Content Include="Content\Highlight\idea.css" />
+    <Content Include="Content\Highlight\ir_black.css" />
+    <Content Include="Content\Highlight\magula.css" />
+    <Content Include="Content\Highlight\monokai.css" />
+    <Content Include="Content\Highlight\pojoaque.css" />
+    <Content Include="Content\Highlight\pojoaque.jpg" />
+    <Content Include="Content\Highlight\rainbow.css" />
+    <Content Include="Content\Highlight\school_book.css" />
+    <Content Include="Content\Highlight\school_book.png" />
+    <Content Include="Content\Highlight\solarized_dark.css" />
+    <Content Include="Content\Highlight\solarized_light.css" />
+    <Content Include="Content\Highlight\sunburst.css" />
+    <Content Include="Content\Highlight\tomorrow-night-blue.css" />
+    <Content Include="Content\Highlight\tomorrow-night-bright.css" />
+    <Content Include="Content\Highlight\tomorrow-night-eighties.css" />
+    <Content Include="Content\Highlight\tomorrow-night.css" />
+    <Content Include="Content\Highlight\tomorrow.css" />
+    <Content Include="Content\Highlight\vs.css" />
+    <Content Include="Content\Highlight\xcode.css" />
+    <Content Include="Content\Highlight\zenburn.css" />
+    <Content Include="Content\HNetNavBar.css" />
+    <Content Include="Content\hnet_checkboxes.css" />
+    <Content Include="Content\portal.css" />
+    <Content Include="Controls\CalEditDialog.ascx" />
+    <Content Include="Controls\CalSearchDialog.ascx" />
+    <Content Include="Controls\VMWareUI.ascx" />
+    <Content Include="ErrorPages\404.aspx" />
+    <Content Include="ErrorPages\GeneralError.aspx" />
+    <Content Include="favicon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="MasterPages\Footer.ascx" />
+    <Content Include="MasterPages\Head.ascx" />
+    <Content Include="MasterPages\Header.ascx" />
+    <Content Include="Private\PwdVault.aspx" />
+    <Content Include="Areas\MVC\Views\Shared\RazorView.aspx" />
+    <Content Include="scripts\bootstrap-datepicker.js" />
+    <Content Include="scripts\bootstrap-datepicker.min.js" />
+    <Content Include="scripts\bootstrap-treeview.js" />
+    <Content Include="scripts\bootstrap-treeview.min.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\aes-min.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\aes.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\cipher-core-min.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\cipher-core.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\core-min.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\core.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\enc-base64-min.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\enc-base64.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\enc-utf16-min.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\enc-utf16.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\evpkdf-min.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\evpkdf.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\format-hex-min.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\format-hex.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\hmac-min.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\hmac.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\lib-typedarrays-min.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\lib-typedarrays.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\md5-min.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\md5.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\mode-cfb-min.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\mode-cfb.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\mode-ctr-gladman-min.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\mode-ctr-gladman.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\mode-ctr-min.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\mode-ctr.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\mode-ecb-min.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\mode-ecb.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\mode-ofb-min.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\mode-ofb.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\pad-ansix923-min.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\pad-ansix923.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\pad-iso10126-min.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\pad-iso10126.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\pad-iso97971-min.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\pad-iso97971.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\pad-nopadding-min.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\pad-nopadding.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\pad-zeropadding-min.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\pad-zeropadding.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\pbkdf2-min.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\pbkdf2.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\rabbit-legacy-min.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\rabbit-legacy.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\rabbit-min.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\rabbit.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\rc4-min.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\rc4.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\ripemd160-min.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\ripemd160.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\sha1-min.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\sha1.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\sha224-min.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\sha224.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\sha256-min.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\sha256.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\sha3-min.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\sha3.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\sha384-min.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\sha384.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\sha512-min.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\sha512.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\tripledes-min.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\tripledes.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\x64-core-min.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\components\x64-core.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\rollups\aes.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\rollups\hmac-md5.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\rollups\hmac-ripemd160.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\rollups\hmac-sha1.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\rollups\hmac-sha224.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\rollups\hmac-sha256.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\rollups\hmac-sha3.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\rollups\hmac-sha384.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\rollups\hmac-sha512.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\rollups\md5.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\rollups\pbkdf2.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\rollups\rabbit-legacy.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\rollups\rabbit.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\rollups\rc4.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\rollups\ripemd160.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\rollups\sha1.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\rollups\sha224.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\rollups\sha256.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\rollups\sha3.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\rollups\sha384.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\rollups\sha512.js" />
+    <Content Include="scripts\CryptoJS v3.1.2\rollups\tripledes.js" />
+    <Content Include="scripts\fileinput.js" />
+    <Content Include="scripts\fileinput.min.js" />
+    <Content Include="scripts\fullcalendar\CHANGELOG.txt" />
+    <Content Include="scripts\fullcalendar\CONTRIBUTING.txt" />
+    <Content Include="scripts\fullcalendar\fullcalendar.css" />
+    <Content Include="scripts\fullcalendar\fullcalendar.js" />
+    <Content Include="scripts\fullcalendar\fullcalendar.min.css" />
+    <Content Include="scripts\fullcalendar\fullcalendar.min.js" />
+    <Content Include="scripts\fullcalendar\fullcalendar.print.css" />
+    <Content Include="scripts\fullcalendar\gcal.js" />
+    <Content Include="scripts\fullcalendar\lang-all.js" />
+    <Content Include="scripts\fullcalendar\LICENSE.txt" />
+    <Content Include="scripts\fullcalendar\moment.min.js" />
+    <Content Include="ImageDirDisplay.aspx" />
+    <Content Include="ImageDirList.aspx" />
+    <Content Include="images\ajax-loader-feed2.gif" />
+    <Content Include="images\ajax-loader3.gif" />
+    <Content Include="images\lions.png" />
+    <Content Include="images\redwings.png" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Private\Calendar.aspx" />
+    <Content Include="Private\CodeView.aspx" />
+    <Content Include="Private\FeedMasterEdit.aspx" />
+    <Content Include="Private\ICalImport.aspx" />
+    <Content Include="Private\ImageDirEdit.aspx" />
+    <Content Include="Private\SoftwareDB.aspx" />
+    <Content Include="Private\Placeholder.aspx" />
+    <Content Include="Private\Default.aspx" />
+    <Content Include="Private\PlexTool.aspx" />
+    <Content Include="Private\RestServiceTester.aspx" />
+    <Content Include="Private\UserRSSEdit.aspx" />
+    <Content Include="Private\UserSectionEdit.aspx" />
+    <Content Include="Private\VMTool.aspx" />
+    <Content Include="Private\WakeOnLan.aspx" />
+    <Content Include="scripts\bootbox.js" />
+    <Content Include="scripts\bootbox.min.js" />
+    <Content Include="scripts\bootstrap.js" />
+    <Content Include="scripts\bootstrap.min.js" />
+    <Content Include="MasterPages\FrontEnd.Master" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="scripts\Highlight\highlight.pack.js" />
+    <Content Include="Content\bootstrap-datepicker3.standalone.css.map" />
+    <Content Include="Content\bootstrap-datepicker3.css.map" />
+    <Content Include="Content\bootstrap-datepicker.standalone.css.map" />
+    <Content Include="Content\bootstrap-datepicker.css.map" />
+    <Content Include="Areas\MVC\Views\web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Areas\MVC\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\MVC\Views\Default\Index.cshtml" />
+    <Content Include="Areas\MVC\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\MVC\Views\Version\Index.cshtml" />
+    <Content Include="Areas\MVC\Views\Version\Details.cshtml" />
+    <Content Include="Areas\MVC\Views\PFTrack2\Index.cshtml" />
+    <None Include="scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="scripts\jquery-3.3.1.js" />
+    <Content Include="scripts\jquery-3.3.1.min.js" />
+    <Content Include="scripts\jquery-3.3.1.slim.js" />
+    <Content Include="scripts\jquery-3.3.1.slim.min.js" />
+    <Content Include="scripts\knockout-3.4.2.debug.js" />
+    <Content Include="scripts\knockout-3.4.2.js" />
+    <Content Include="scripts\locales\ar.js" />
+    <Content Include="scripts\locales\bg.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker-en-CA.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.ar-tn.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.ar.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.az.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.bg.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.bn.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.br.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.bs.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.ca.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.cs.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.cy.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.da.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.de.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.el.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.en-AU.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.en-GB.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.en-IE.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.en-NZ.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.en-ZA.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.eo.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.es.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.et.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.eu.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.fa.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.fi.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.fo.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.fr-CH.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.fr.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.gl.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.he.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.hi.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.hr.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.hu.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.hy.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.id.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.is.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.it-CH.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.it.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.ja.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.ka.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.kh.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.kk.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.km.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.ko.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.kr.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.lt.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.lv.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.me.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.mk.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.mn.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.ms.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.nb.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.nl-BE.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.nl.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.no.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.oc.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.pl.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.pt-BR.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.pt.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.ro.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.rs-latin.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.rs.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.ru.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.si.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.sk.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.sl.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.sq.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.sr-latin.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.sr.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.sv.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.sw.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.ta.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.tg.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.th.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.tr.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.uk.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.uz-cyrl.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.uz-latn.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.vi.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.zh-CN.min.js" />
+    <Content Include="scripts\locales\bootstrap-datepicker.zh-TW.min.js" />
+    <Content Include="scripts\locales\ca.js" />
+    <Content Include="scripts\locales\cr.js" />
+    <Content Include="scripts\locales\cs.js" />
+    <Content Include="scripts\locales\da.js" />
+    <Content Include="scripts\locales\de.js" />
+    <Content Include="scripts\locales\el.js" />
+    <Content Include="scripts\locales\es.js" />
+    <Content Include="scripts\locales\fa.js" />
+    <Content Include="scripts\locales\fi.js" />
+    <Content Include="scripts\locales\fr.js" />
+    <Content Include="scripts\locales\hu.js" />
+    <Content Include="scripts\locales\id.js" />
+    <Content Include="scripts\locales\it.js" />
+    <Content Include="scripts\locales\ja.js" />
+    <Content Include="scripts\locales\ka.js" />
+    <Content Include="scripts\locales\kr.js" />
+    <Content Include="scripts\locales\kz.js" />
+    <Content Include="scripts\locales\LANG.js" />
+    <Content Include="scripts\locales\lt.js" />
+    <Content Include="scripts\locales\nl.js" />
+    <Content Include="scripts\locales\pl.js" />
+    <Content Include="scripts\locales\pt-BR.js" />
+    <Content Include="scripts\locales\pt.js" />
+    <Content Include="scripts\locales\ro.js" />
+    <Content Include="scripts\locales\ru.js" />
+    <Content Include="scripts\locales\sk.js" />
+    <Content Include="scripts\locales\sl.js" />
+    <Content Include="scripts\locales\sv.js" />
+    <Content Include="scripts\locales\th.js" />
+    <Content Include="scripts\locales\tr.js" />
+    <Content Include="scripts\locales\uk.js" />
+    <Content Include="scripts\locales\vi.js" />
+    <Content Include="scripts\locales\zh-TW.js" />
+    <Content Include="scripts\locales\zh.js" />
+    <Content Include="scripts\plugins\purify.js" />
+    <Content Include="scripts\plugins\purify.min.js" />
+    <Content Include="scripts\plugins\sortable.js" />
+    <Content Include="scripts\plugins\sortable.min.js" />
+    <Content Include="WebServices\PF2DataExchange.asmx" />
+    <Content Include="WebServices\PortalServices.svc" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="App_Data\boil_id_rsa" />
+    <Content Include="App_Data\lrpx_esxi" />
+    <None Include="Properties\PublishProfiles\portalm.hnet.local.pubxml" />
+    <Content Include="scripts\jquery-3.3.1.slim.min.map" />
+    <Content Include="scripts\jquery-3.3.1.min.map" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="WebServices\UploadHandler.ashx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Default.aspx" />
+    <Content Include="Global.asax" />
+    <Content Include="Login.aspx" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Areas\api\Controllers\AuthenticationController.cs" />
+    <Compile Include="Areas\api\Controllers\CalendarController.cs" />
+    <Compile Include="Areas\api\Controllers\ICalController.cs" />
+    <Compile Include="Areas\api\Controllers\LogTailController.cs" />
+    <Compile Include="Areas\api\Controllers\NewsFeedController.cs" />
+    <Compile Include="Areas\api\Controllers\PFTrack2Controller.cs" />
+    <Compile Include="Areas\api\Controllers\PlexController.cs" />
+    <Compile Include="Areas\api\Controllers\RSSMasterController.cs" />
+    <Compile Include="Areas\api\Controllers\ShippingTrackController.cs" />
+    <Compile Include="Areas\api\Controllers\TFSController.cs" />
+    <Compile Include="Areas\api\Controllers\TrollUptimeController.cs" />
+    <Compile Include="Areas\api\Controllers\VaultController.cs" />
+    <Compile Include="Areas\api\Controllers\VersionController.cs" />
+    <Compile Include="Areas\api\Controllers\VMWareController.cs" />
+    <Compile Include="Areas\api\HNetAuthorize.cs" />
+    <Compile Include="Areas\api\Models\GenericRequest.cs" />
+    <Compile Include="Code\ShipperTrack.cs" />
+    <Compile Include="Areas\api\Models\VersionsVM.cs" />
+    <Compile Include="Areas\api\WebApiConfig.cs" />
+    <Compile Include="Areas\api\Controllers\NodeStatusController.cs" />
+    <Compile Include="Areas\api\Controllers\QuotesController.cs" />
+    <Compile Include="Areas\MVC\ControllerExtensions.cs" />
+    <Compile Include="Areas\MVC\Controllers\DefaultController.cs" />
+    <Compile Include="Areas\MVC\Controllers\PFTrack2Controller.cs" />
+    <Compile Include="Areas\MVC\Controllers\VersionController.cs" />
+    <Compile Include="Areas\MVC\Models\Default.cs" />
+    <Compile Include="Areas\MVC\MVCAreaRegistration.cs" />
+    <Compile Include="Areas\api\Controllers\UserLinksController.cs" />
+    <Compile Include="Areas\MVC\Views\Shared\HeaderWrapper.ascx.cs">
+      <DependentUpon>HeaderWrapper.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Areas\MVC\Views\Shared\HeaderWrapper.ascx.designer.cs">
+      <DependentUpon>HeaderWrapper.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Cache.cs" />
+    <Compile Include="Code\Calendar.cs" />
+    <Compile Include="Code\ICal.cs" />
+    <Compile Include="Code\ImageLib.cs" />
+    <Compile Include="Code\KeePass.cs" />
+    <Compile Include="Code\NewsFeed.cs" />
+    <Compile Include="Code\Plex.cs" />
+    <Compile Include="Code\RSSMaster.cs" />
+    <Compile Include="Code\SoftwareDB.cs" />
+    <Compile Include="Code\TeamFoundation.cs" />
+    <Compile Include="Code\UserLinks.cs" />
+    <Compile Include="Controls\CalEditDialog.ascx.cs">
+      <DependentUpon>CalEditDialog.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\CalEditDialog.ascx.designer.cs">
+      <DependentUpon>CalEditDialog.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CalSearchDialog.ascx.cs">
+      <DependentUpon>CalSearchDialog.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\CalSearchDialog.ascx.designer.cs">
+      <DependentUpon>CalSearchDialog.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\VMWareUI.ascx.cs">
+      <DependentUpon>VMWareUI.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\VMWareUI.ascx.designer.cs">
+      <DependentUpon>VMWareUI.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ErrorPages\404.aspx.cs">
+      <DependentUpon>404.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ErrorPages\404.aspx.designer.cs">
+      <DependentUpon>404.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ErrorPages\GeneralError.aspx.cs">
+      <DependentUpon>GeneralError.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ErrorPages\GeneralError.aspx.designer.cs">
+      <DependentUpon>GeneralError.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="ImageDirDisplay.aspx.cs">
+      <DependentUpon>ImageDirDisplay.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ImageDirDisplay.aspx.designer.cs">
+      <DependentUpon>ImageDirDisplay.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ImageDirList.aspx.cs">
+      <DependentUpon>ImageDirList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ImageDirList.aspx.designer.cs">
+      <DependentUpon>ImageDirList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MasterPages\Footer.ascx.cs">
+      <DependentUpon>Footer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MasterPages\Footer.ascx.designer.cs">
+      <DependentUpon>Footer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="MasterPages\FrontEnd.Master.cs">
+      <DependentUpon>FrontEnd.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MasterPages\FrontEnd.Master.designer.cs">
+      <DependentUpon>FrontEnd.Master</DependentUpon>
+    </Compile>
+    <Compile Include="MasterPages\Head.ascx.cs">
+      <DependentUpon>Head.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MasterPages\Head.ascx.designer.cs">
+      <DependentUpon>Head.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="MasterPages\Header.ascx.cs">
+      <DependentUpon>Header.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MasterPages\Header.ascx.designer.cs">
+      <DependentUpon>Header.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Private\Calendar.aspx.cs">
+      <DependentUpon>Calendar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Private\Calendar.aspx.designer.cs">
+      <DependentUpon>Calendar.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Private\CodeView.aspx.cs">
+      <DependentUpon>CodeView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Private\CodeView.aspx.designer.cs">
+      <DependentUpon>CodeView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Private\FeedMasterEdit.aspx.cs">
+      <DependentUpon>FeedMasterEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Private\FeedMasterEdit.aspx.designer.cs">
+      <DependentUpon>FeedMasterEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Private\ICalImport.aspx.cs">
+      <DependentUpon>ICalImport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Private\ICalImport.aspx.designer.cs">
+      <DependentUpon>ICalImport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Private\ImageDirEdit.aspx.cs">
+      <DependentUpon>ImageDirEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Private\ImageDirEdit.aspx.designer.cs">
+      <DependentUpon>ImageDirEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Private\PwdVault.aspx.cs">
+      <DependentUpon>PwdVault.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Private\PwdVault.aspx.designer.cs">
+      <DependentUpon>PwdVault.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Private\SoftwareDB.aspx.cs">
+      <DependentUpon>SoftwareDB.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Private\SoftwareDB.aspx.designer.cs">
+      <DependentUpon>SoftwareDB.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Private\Placeholder.aspx.cs">
+      <DependentUpon>Placeholder.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Private\Placeholder.aspx.designer.cs">
+      <DependentUpon>Placeholder.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Private\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Private\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Private\PlexTool.aspx.cs">
+      <DependentUpon>PlexTool.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Private\PlexTool.aspx.designer.cs">
+      <DependentUpon>PlexTool.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Private\RestServiceTester.aspx.cs">
+      <DependentUpon>RestServiceTester.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Private\RestServiceTester.aspx.designer.cs">
+      <DependentUpon>RestServiceTester.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Private\UserRSSEdit.aspx.cs">
+      <DependentUpon>UserRSSEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Private\UserRSSEdit.aspx.designer.cs">
+      <DependentUpon>UserRSSEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Private\UserSectionEdit.aspx.cs">
+      <DependentUpon>UserSectionEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Private\UserSectionEdit.aspx.designer.cs">
+      <DependentUpon>UserSectionEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Private\VMTool.aspx.cs">
+      <DependentUpon>VMTool.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Private\VMTool.aspx.designer.cs">
+      <DependentUpon>VMTool.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Private\WakeOnLan.aspx.cs">
+      <DependentUpon>WakeOnLan.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Private\WakeOnLan.aspx.designer.cs">
+      <DependentUpon>WakeOnLan.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Areas\MVC\Views\Shared\RazorView.aspx.cs">
+      <DependentUpon>RazorView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Areas\MVC\Views\Shared\RazorView.aspx.designer.cs">
+      <DependentUpon>RazorView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebServices\PF2DataExchange.asmx.cs">
+      <DependentUpon>PF2DataExchange.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WebServices\UploadHandler.ashx.cs">
+      <DependentUpon>UploadHandler.ashx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WebServices\PortalServices.svc.cs">
+      <DependentUpon>PortalServices.svc</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Code\" />
+    <Folder Include="Content\bootstrap-fileinput\sass\" />
+    <Folder Include="imagebase\full\" />
+    <Folder Include="imagebase\thumb\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\PFTrack2\PFTrack2.csproj">
+      <Project>{9ca1f1a3-a20d-46b0-b693-ade122ba8042}</Project>
+      <Name>PFTrack2</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\WSHLib\WSHLib.csproj">
+      <Project>{5c8fc18b-0478-4818-948d-c0f9703d43f8}</Project>
+      <Name>WSHLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>63976</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:63976/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.TeamFoundationServer.ExtendedClient.15.112.1\build\Microsoft.TeamFoundationServer.ExtendedClient.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.TeamFoundationServer.ExtendedClient.15.112.1\build\Microsoft.TeamFoundationServer.ExtendedClient.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.6.1\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.6.1\build\Microsoft.Net.Compilers.props'))" />
+  </Target>
+  <Import Project="..\packages\Microsoft.TeamFoundationServer.ExtendedClient.15.112.1\build\Microsoft.TeamFoundationServer.ExtendedClient.targets" Condition="Exists('..\packages\Microsoft.TeamFoundationServer.ExtendedClient.15.112.1\build\Microsoft.TeamFoundationServer.ExtendedClient.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

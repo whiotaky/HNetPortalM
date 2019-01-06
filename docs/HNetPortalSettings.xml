@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--  This file exists to keep sensitive information
+outside of web.config, and hence outside of source control as well.
+Put a copy of this file in the app's WorkDir with the correct secret data.
+
+Adding to this file will require additional coding in the Global.aspx.cs file.
+-->
+<HNetPortal>
+	<MySqlAccount>
+		<UserName>fake</UserName>
+		<Password>fake</Password>
+	</MySqlAccount>
+
+	<KeePass>
+		<DatabasePassword>fake</DatabasePassword>
+		<Encryption>
+			<Key>1234567890123456</Key>
+			<Iv>1234567890123456</Iv>
+		</Encryption>
+	</KeePass>
+
+</HNetPortal>
