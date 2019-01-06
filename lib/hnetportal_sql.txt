@@ -1,0 +1,308 @@
+#create the account.  Log into database as root:
+mysql -h localhost -u root -pxxxxxxxx 
+
+#RESTORE FROM BACKUP IN mysql command eg: "use hnetportal; source /tmp/portaldata_backup_2014.06.22.sql; "
+
+--Create database
+CREATE DATABASE hnetportal;
+
+--Create table
+use hnetportal;
+
+CREATE TABLE cache (
+  `username` varchar(32) NOT NULL default '',
+  `cachename` varchar(32) NOT NULL default '',
+  `data`  text NOT NULL,
+   `updated_ts` timestamp not null DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY  (`username`,`cachename`) 
+) TYPE=MyISAM;
+
+CREATE TABLE calendar (
+  `username` varchar(32) NOT NULL default '',
+  `caldate` date NOT NULL,
+   `content` text, 
+  PRIMARY KEY  (`username`,`caldate`) 
+) TYPE=MyISAM;
+
+CREATE TABLE linkssection (
+  sectionid mediumint(9) NOT NULL AUTO_INCREMENT,
+  username varchar(32) CHARACTER SET latin1 NOT NULL DEFAULT '',
+  orderby mediumint(9) NOT NULL DEFAULT '0',
+  sectiontext varchar(255) CHARACTER SET latin1 NOT NULL DEFAULT '',
+  enabled char(1) CHARACTER SET latin1 NOT NULL DEFAULT 'Y',
+  timestamp datetime NOT NULL,
+  PRIMARY KEY (sectionid)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+CREATE TABLE linksdetail (
+  linkid mediumint(9) NOT NULL AUTO_INCREMENT,
+  sectionid mediumint(10) DEFAULT NULL,
+  orderby mediumint(9) NOT NULL DEFAULT '0',
+  username varchar(32) NOT NULL DEFAULT '',
+  linkText varchar(255) NOT NULL DEFAULT '',
+  linkURL varchar(255) DEFAULT '',
+  subSectionText varchar(255) DEFAULT NULL,
+  enabled char(1) NOT NULL DEFAULT 'Y',
+  hoverText varchar(255) DEFAULT NULL,
+  timestamp datetime NOT NULL,
+  newwindow char(1) NOT NULL DEFAULT 'Y',
+  ismenuitem char(1) NOT NULL DEFAULT 'N',
+  PRIMARY KEY (linkid)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+CREATE TABLE feedsmaster(
+  feedid MEDIUMINT NOT NULL AUTO_INCREMENT,  
+  feedName varchar(255) NOT NULL default '',
+  feedType tinyint(10) unsigned NOT NULL default '0',
+  feedURL varchar(255) NOT NULL default '',
+  cacheFilePrefix varchar(64) NOT NULL default '',
+  enabled char(1) NOT NULL default 'Y',
+PRIMARY KEY  (feedid)
+) TYPE=MyISAM;
+
+CREATE TABLE userfeedprefs(	
+  ufpid MEDIUMINT NOT NULL AUTO_INCREMENT,  
+  feedid MEDIUMINT NOT NULL,  
+  username varchar(32) NOT NULL default '',
+  orderby tinyint(10) unsigned NOT NULL default '0',
+PRIMARY KEY  (ufpid)
+) TYPE=MyISAM;
+
+CREATE TABLE imbasedirperm (
+   username varchar(32) NOT NULL ,
+   dirname varchar(255) NOT NULL default '',
+   publicaccess char(1) NOT NULL default 'N',
+   updated_ts timestamp not null DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY  (dirName) 
+) TYPE=MyISAM;
+
+
+CREATE TABLE ShipperTrack (
+  trackingNo varchar(32) NOT NULL,
+  shipperCode varchar(10) NOT NULL,
+  username varchar(32) NOT NULL,
+  update_t datetime NOT NULL,
+  PRIMARY KEY (trackingNo,shipperCode),
+  KEY K2 (trackingNo),
+  KEY`K1 (username)
+) TYPE=MyISAM;
+
+
+DELIMITER $$
+CREATE PROCEDURE resequenceLinksSections (
+	xUserName varchar(40), 
+	xStartingIdx INT(10),
+	xIncrementBy INT(10)
+)
+BEGIN 
+
+	DECLARE done INT DEFAULT 0;
+	DECLARE currSecId MEDIUMINT(9) DEFAULT 0;
+	DECLARE newOrderBy INT(10) DEFAULT 0;
+	DECLARE cur1 CURSOR FOR select sectionid from linkssection where username=xUserName and enabled='Y' order by orderby;
+	DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+    
+	SELECT xStartingIdx into newOrderBy;
+
+	OPEN cur1; 
+	read_loop: LOOP 
+    
+		FETCH cur1 into currSecId;
+		IF done THEN
+			LEAVE read_loop;
+		END IF;
+	
+		UPDATE linkssection set orderby=newOrderBy where sectionid=currSecId;
+		SELECT newOrderBy+xIncrementBy into newOrderBy;
+        
+	END LOOP;      
+	CLOSE cur1;
+ 
+	SELECT  sectionid, orderby, sectionText,enabled, DATE_FORMAT(timestamp, '%m-%d-%Y %h:%i:%s') as timestamp FROM linkssection where username=xUserName  order by orderby;
+ 
+END$$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE  PROCEDURE resequenceLinksDetail (
+	xUserName varchar(40), 
+	xSectionId INT(10),	
+	xStartingIdx INT(10),
+	xIncrementBy INT(10)
+)
+BEGIN 
+
+	DECLARE done INT DEFAULT 0;
+	DECLARE currLinkId MEDIUMINT(9) DEFAULT 0;
+	DECLARE newOrderBy INT(10) DEFAULT 0;
+	DECLARE cur1 CURSOR FOR select linkid from linksdetail where username=xUserName and sectionid=xSectionId order by orderby;
+	DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+    
+	SELECT xStartingIdx into newOrderBy;
+
+	OPEN cur1; 
+	read_loop: LOOP 
+    
+		FETCH cur1 into currLinkId;
+		IF done THEN
+			LEAVE read_loop;
+		END IF;
+	
+		UPDATE linksdetail set orderby=newOrderBy where linkid=currLinkId;
+		SELECT newOrderBy+xIncrementBy into newOrderBy;
+        
+	END LOOP;      
+	CLOSE cur1;
+ 
+	SELECT linkid, sectionid, orderby, linkText,linkURL, subSectionText, hoverText, enabled, DATE_FORMAT(timestamp, '%m-%d-%Y %h:%i:%s') as timestamp, newwindow, ismenuitem FROM linksdetail where username=xUserName and sectionid=xSectionId  order by orderby;
+ 
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE ShipperTrackGetList (
+	xshipperCode varchar(10),		
+	xuserName  varchar(32)
+)
+BEGIN 
+    
+   -- Clean up old records
+   DELETE FROM ShipperTrack 
+   WHERE update_ts < NOW() - INTERVAL 45 DAY
+   and username=xuserName
+   and shipperCode=xshipperCode;
+   
+	-- Return records from newest to oldest
+	select trackingNo, shipperCode,update_ts, username from ShipperTrack
+    where shipperCode=xshipperCode and username=xuserName
+    ORDER BY update_ts desc;
+ 
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE ShipperTrackInsert(
+	xtrackingNo varchar(32), 
+	xshipperCode varchar(10),		
+	xuserName  varchar(32)
+)
+BEGIN 
+
+	INSERT INTO ShipperTrack (trackingNo, shipperCode,update_ts, username) VALUES (xtrackingNo, xshipperCode,CURRENT_TIMESTAMP, xuserName)
+    ON DUPLICATE KEY UPDATE trackingNo=trackingNo; -- update_ts=CURRENT_TIMESTAMP;
+ 
+END$$
+DELIMITER ;
+
+
+--Create an account that can only be used from
+--the localhost to connect to the database
+GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP,EXECUTE, LOCK TABLES
+ON hnetportal.* 
+TO 'hnetportal'@'localhost' 
+IDENTIFIED BY 'password1';
+FLUSH PRIVILEGES;
+
+--Logout
+exit
+
+
+
+--Create an account that can only be used from
+--the local network to connect to the database
+GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP,EXECUTE, LOCK TABLES
+ON hnetportal.* 
+TO 'webuser'@'192.168.67.%' 
+IDENTIFIED BY 'password1';
+FLUSH PRIVILEGES;
+
+
+--Login as the portal user and test
+mysql -h localhost -u hnetportal -ppassword1
+use hnetportal;
+show tables;
+insert into calendar (username,caldate,content) values('boil',CURDATE(),'This is a sample calendar entry (today)');
+insert into calendar (username,caldate,content) values('boil',DATE_SUB(CURDATE(),INTERVAL 10 DAY),'This is a sample calendar entry (10 days old)');
+insert into calendar (username,caldate,content) values('boil',DATE_SUB(CURDATE(),INTERVAL 100 DAY),'This is a sample calendar entry (100 days old)');
+insert into calendar (username,caldate,content) values('boil',DATE_SUB(CURDATE(),INTERVAL 365 DAY),'This is a sample calendar entry (365 days old)');
+insert into calendar (username,caldate,content) values('boil',DATE_SUB(CURDATE(),INTERVAL 600 DAY),'This is a sample calendar entry (600 days old)');
+select * from calendar;
+
+
+
+
+--RSS Feeds
+insert into feedsmaster (feedname, feedtype,feedURL,cacheFileprefix) values('Slashdot',1,'[slashDot]','slashdot');
+insert into feedsmaster (feedname, feedtype,feedURL,cacheFileprefix) values('Detroit News - Headlines',1,'http://detnews.com/apps/pbcs.dll/section?category=rss&mime=xml','news_metro');
+insert into feedsmaster (feedname, feedtype,feedURL,cacheFileprefix) values('Detroit News - Autos Insider',1,'http://detnews.com/apps/pbcs.dll/section?category=rss25&mime=xml','news_autoinsider');
+insert into feedsmaster (feedname, feedtype,feedURL,cacheFileprefix) values('Detroit News - Lions-NFL',1,'http://detnews.com/apps/pbcs.dll/section?category=rss14&mime=xml','news_lions');
+insert into feedsmaster (feedname, feedtype,feedURL,cacheFileprefix) values('MarketWatch.com - Top Stories',1,'http://feeds.marketwatch.com/marketwatch/topstories/','marketwatch');
+insert into feedsmaster (feedname, feedtype,feedURL,cacheFileprefix) values('Career Builder',2,'http://www.careerbuilder.com/RTQ/JobRecommendationsRSS.aspx?DateStarted=[CBDATE]T17%3a59%3a00&DossierDID=DNG5CX785KHJFSDPRW2','cbuilder');
+insert into feedsmaster (feedname, feedtype,feedURL,cacheFileprefix) values('Monster',2,'','monster','[monster]');
+
+insert into userfeedprefs(feedid,username,orderby) values(1,'boil',1);
+insert into userfeedprefs(feedid,username,orderby) values(2,'boil',2);
+insert into userfeedprefs(feedid,username,orderby) values(3,'boil',3);
+insert into userfeedprefs(feedid,username,orderby) values(4,'boil',4);
+insert into userfeedprefs(feedid,username,orderby) values(5,'boil',5);
+insert into userfeedprefs(feedid,username,orderby) values(6,'boil',1);
+insert into userfeedprefs(feedid,username,orderby) values(7,'boil',2);
+
+
+insert into linkssection (username,orderby,sectionText,enabled,timestamp) values('boil',0,'HNet Sites','Y', CURRENT_TIMESTAMP);
+insert into linkssection (username,orderby,sectionText,enabled,timestamp) values('boil',0,'Frequently Visited Sites','Y', CURRENT_TIMESTAMP);
+insert into linkssection (username,orderby,sectionText,enabled,timestamp) values('boil',1,'Quake news Sites!','N', CURRENT_TIMESTAMP);
+
+
+
+--Section 1 Links
+--
+insert into linksdetail (sectionid,orderby,username, linkText,linkURL, timestamp) values(1,0,'boil','Troll Index','http://troll.homelinux.com',CURRENT_TIMESTAMP);
+insert into linksdetail (sectionid,orderby,username, linkText,linkURL, timestamp) values(1,1,'boil','Troll Webmin','http://troll.homelinux.com:10000',CURRENT_TIMESTAMP);
+insert into linksdetail (sectionid,orderby,username, linkText,linkURL, timestamp) values(1,2,'boil','Rascal Index','http://rascal.homelinux.com',CURRENT_TIMESTAMP);
+
+insert into linksdetail (sectionid,orderby,username, linkText,linkURL, timestamp,subSectionText) values(1,3,'boil','Boil Index','http://boil.homelinux.com',CURRENT_TIMESTAMP,'Boil Index');
+insert into linksdetail (sectionid,orderby,username, linkText,linkURL, timestamp,subSectionText) values(1,4,'boil','Boil - File Access','http://boil.homelinux.com/cgi-bin/secure/fileaccess.pl',CURRENT_TIMESTAMP,'Boil Index');
+insert into linksdetail (sectionid,orderby,username, linkText,linkURL, timestamp,subSectionText) values(1,5,'boil','Yamaha DT125 blog','http://boil.homelinux.com/dt125/DT125.html',CURRENT_TIMESTAMP,'Boil Index');
+insert into linksdetail (sectionid,orderby,username, linkText,linkURL, timestamp,subSectionText) values(1,6,'boil','Yamaha DT125 Pictures','http://troll.homelinux.com/yamaha',CURRENT_TIMESTAMP,'Boil Index');
+insert into linksdetail (sectionid,orderby,username, linkText,linkURL, timestamp,subSectionText) values(1,7,'boil','Dream Cruise 2005','http://troll.homelinux.com/dcruise2005/',CURRENT_TIMESTAMP,'Boil Index');
+insert into linksdetail (sectionid,orderby,username, linkText,linkURL, timestamp,subSectionText) values(1,8,'boil','Superbowl XL','http://troll.homelinux.com/superbowlXL/',CURRENT_TIMESTAMP,'Boil Index');
+insert into linksdetail (sectionid,orderby,username, linkText,linkURL, timestamp,subSectionText) values(1,9,'boil','2006 Mustang','http://troll.homelinux.com/mustang/',CURRENT_TIMESTAMP,'Boil Index');
+
+insert into linksdetail (sectionid,orderby,username, linkText,linkURL, timestamp) values(1,10,'boil','PFTrack - Web Application','http://[PORTMAP]/PFTrack/default.aspx',CURRENT_TIMESTAMP);
+insert into linksdetail (sectionid,orderby,username, linkText,linkURL, timestamp) values(1,11,'boil','PFTrack - Public Site','http://troll.homelinux.com/pftrack/',CURRENT_TIMESTAMP);
+insert into linksdetail (sectionid,orderby,username, linkText,linkURL, timestamp) values(1,12,'boil','PFTrack Data Exchange SOAP Service','http://box4/pfTrack/dataExchange.asmx',CURRENT_TIMESTAMP);
+insert into linksdetail (sectionid,orderby,username, linkText,linkURL, timestamp) values(1,13,'boil','PFTrack Data Exchange SOAP Service (Proxy)','http://box4/pfTrack/dataExchangeProxy.asmx',CURRENT_TIMESTAMP);
+insert into linksdetail (sectionid,orderby,username, linkText,linkURL, timestamp) values(1,14,'boil','Quotes SOAP Service','http://[PORTMAP]/QuotesService/Quotes.asmx',CURRENT_TIMESTAMP);
+insert into linksdetail (sectionid,orderby,username, linkText,linkURL, timestamp) values(1,15,'boil','HTTP Quotes Service(F)','http://[THISHOST]/cgi-bin/quote.pl?p1=F',CURRENT_TIMESTAMP);
+insert into linksdetail (sectionid,orderby,username, linkText,linkURL, timestamp) values(1,16,'boil','Change Manager','http://[THISHOST]/changeman',CURRENT_TIMESTAMP);
+insert into linksdetail (sectionid,orderby,username, linkText,linkURL, timestamp) values(1,17,'boil','Software Database','http://[PORTMAP]/softwaredb/default.aspx',CURRENT_TIMESTAMP);
+insert into linksdetail (sectionid,orderby,username, linkText,linkURL, timestamp) values(1,18,'boil','PR1 Online','http://box4:8081/',CURRENT_TIMESTAMP);
+insert into linksdetail (sectionid,orderby,username, linkText,linkURL, timestamp) values(1,19,'boil','PR1 On Demand','http://box4od:8081/',CURRENT_TIMESTAMP);
+insert into linksdetail (sectionid,orderby,username, linkText,linkURL, timestamp) values(1,20,'boil','PR1 CSharp','http://box4/csharp/login.aspx',CURRENT_TIMESTAMP);
+insert into linksdetail (sectionid,orderby,username, linkText,linkURL, timestamp) values(1,21,'boil','Softball','http://softball.homelinux.com/softball',CURRENT_TIMESTAMP);
+
+
+--Section 2 Links
+--
+insert into linksdetail (sectionid,orderby,username, linkText,linkURL, timestamp) values(2,0,'boil','Career Builder','http://www.careerbuilder.com',CURRENT_TIMESTAMP);
+insert into linksdetail (sectionid,orderby,username, linkText,linkURL, timestamp) values(2,1,'boil','Monster','http://www.monster.com',CURRENT_TIMESTAMP);
+insert into linksdetail (sectionid,orderby,username, linkText,linkURL, timestamp) values(2,2,'boil','Ford Employee Network','http://employees.ford.com',CURRENT_TIMESTAMP);
+insert into linksdetail (sectionid,orderby,username, linkText,linkURL, timestamp) values(2,3,'boil','Ford Vehicles','http://www.fordvehicles.com',CURRENT_TIMESTAMP);
+insert into linksdetail (sectionid,orderby,username, linkText,linkURL, timestamp) values(2,4,'boil','Blue Oval','http://www.blueovalforums.com/forums/index.php',CURRENT_TIMESTAMP);
+insert into linksdetail (sectionid,orderby,username, linkText,linkURL, timestamp) values(2,5,'boil','Michael King Music','http://www.michaelkingmusic.com',CURRENT_TIMESTAMP);
+insert into linksdetail (sectionid,orderby,username, linkText,linkURL, timestamp) values(2,6,'boil','Michael King Music - Site Admin','http://www.michaelkingmusic.com/admin',CURRENT_TIMESTAMP);
+insert into linksdetail (sectionid,orderby,username, linkText,linkURL, timestamp) values(2,14,'boil','Detroit Lions 2006 Schedule','http://www.detroitlions.com/section_display.cfm?section_id=13&top=21&level=2',CURRENT_TIMESTAMP);
+insert into linksdetail (sectionid,orderby,username, linkText,linkURL, timestamp) values(2,15,'boil','WDFN Sports Radio','http://www.wdfn.com',CURRENT_TIMESTAMP);
+insert into linksdetail (sectionid,orderby,username, linkText,linkURL, timestamp) values(2,16,'boil','KSHL Hockey','http://home.comcast.net/~kshl/index.html',CURRENT_TIMESTAMP);
+insert into linksdetail (sectionid,orderby,username, linkText,linkURL, timestamp) values(2,17,'boil','Stub Hub','http://www.stubhub.com',CURRENT_TIMESTAMP);
+
+--Section 3 Links
+insert into linksdetail (sectionid,orderby,username, linkText,linkURL, timestamp) values(3,6,'boil','Michael King Music - Site Admin','http://www.michaelkingmusic.com/admin',CURRENT_TIMESTAMP);
+insert into linksdetail (sectionid,orderby,username, linkText,linkURL, timestamp) values(3,14,'boil','Detroit Lions 2006 Schedule','http://www.detroitlions.com/section_display.cfm?section_id=13&top=21&level=2',CURRENT_TIMESTAMP);
+
+
+
+
+exit
