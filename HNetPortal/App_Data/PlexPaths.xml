@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<HNetPortal>
+
+  <plexPath ID="HOME" enabled="TRUE">
+    <Name>Home Movies</Name>
+    <PROD>\\box6.hnet.local\Home--OFFLINE</PROD>
+    <DEV>E:/Multimedia/Home--OFFLINE</DEV>
+    <isHome>TRUE</isHome>
+  </plexPath>
+
+
+</HNetPortal>
